@@ -31,4 +31,4 @@ for i, chunk in enumerate(chunks):
     # 出力ファイル名を作成
     output_file_path = f"{file_name}_{i}{ext}"
     # ファイルを保存
-    chunk.export(output_file_path, format="{ext}")
+    chunk.export(output_file_path, format="wav")
