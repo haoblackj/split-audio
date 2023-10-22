@@ -1,10 +1,14 @@
 import sys
+import os.path
 import librosa
 from pydub import AudioSegment
 from pydub.silence import split_on_silence
 
 # 引数から音声ファイルパスを取得
 file_path = sys.argv[1]
+
+# ファイル名と拡張子を取得
+file_name, ext = os.path.splitext(file_path)
 
 # 音声ファイルを読み込む
 audio, sr = librosa.load(file_path, sr=None)
@@ -24,4 +28,7 @@ chunks = split_on_silence(
 
 # 分割した発話を個別のファイルに保存
 for i, chunk in enumerate(chunks):
-    chunk.export(f"output/speech_{i}.wav", format="wav")
+    # 出力ファイル名を作成
+    output_file_path = f"{file_name}_{i}{ext}"
+    # ファイルを保存
+    chunk.export(output_file_path, format="{ext}")
